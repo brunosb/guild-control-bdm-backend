@@ -43,7 +43,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'barbosa-gostack-gobarber',
+      bucket: '',
     },
   },
 } as IUploadConfig;

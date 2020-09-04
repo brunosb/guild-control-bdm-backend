@@ -1,11 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreatePermissions1598583128231
-  implements MigrationInterface {
+export default class CreateClasses1598744682490 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'permissions',
+        name: 'classes',
         columns: [
           {
             name: 'id',
@@ -17,6 +16,27 @@ export default class CreatePermissions1598583128231
           {
             name: 'name',
             type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'name_ascension',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'name_awakening',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'avatar_ascension',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'avatar_awakening',
+            type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'created_at',
@@ -34,6 +54,6 @@ export default class CreatePermissions1598583128231
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('permissions');
+    await queryRunner.dropTable('classes');
   }
 }

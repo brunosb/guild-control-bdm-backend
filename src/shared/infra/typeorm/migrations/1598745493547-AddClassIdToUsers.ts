@@ -5,32 +5,33 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export default class AddPermissionIdToUsers1598585169216
+export default class AddClassIdToUsers1598745493547
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn(
       'users',
       new TableColumn({
-        name: 'permission_id',
+        name: 'class_id',
         type: 'uuid',
-        isNullable: true,
+        isNullable: false,
       }),
     );
+
     await queryRunner.createForeignKey(
       'users',
       new TableForeignKey({
-        name: 'UserPermission',
-        columnNames: ['permission_id'],
-        referencedTableName: 'permissions',
+        name: 'UserClass',
+        columnNames: ['class_id'],
         referencedColumnNames: ['id'],
-        onUpdate: 'CASCADE',
+        referencedTableName: 'classes',
         onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('users', 'UserPermission');
-    await queryRunner.dropColumn('users', 'permission_id');
+    await queryRunner.dropForeignKey('users', 'UserClass');
+    await queryRunner.dropColumn('users', 'class_id');
   }
 }

@@ -4,10 +4,13 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import uploadConfig from '@config/upload';
 import { Exclude, Expose } from 'class-transformer';
+import Class from './Class';
 
 @Entity('users')
 class User {
@@ -26,6 +29,25 @@ class User {
 
   @Column()
   avatar: string;
+
+  @Column()
+  sub_class: string;
+
+  @Column()
+  permission: string;
+
+  @Column()
+  cp: number;
+
+  @Column()
+  class_id: string;
+
+  @OneToOne(() => Class)
+  @JoinColumn({ name: 'class_id' })
+  class: Class;
+
+  @Column()
+  active: boolean;
 
   @CreateDateColumn()
   created_at: Date;

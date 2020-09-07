@@ -18,9 +18,10 @@ usersRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      whatsapp: Joi.string().required(),
+      whatsapp: Joi.string(),
       permission: Joi.string().required(),
-      class_id: Joi.string().uuid().required(),
+      cp: Joi.number(),
+      classe: Joi.string().required(),
       sub_class: Joi.string().required(),
       password: Joi.string().required(),
     },

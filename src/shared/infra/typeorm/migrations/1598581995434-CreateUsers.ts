@@ -22,10 +22,12 @@ export default class CreateUsers1598581995434 implements MigrationInterface {
             name: 'whatsapp',
             type: 'varchar',
             isUnique: true,
+            isNullable: true,
           },
           {
             name: 'password',
             type: 'varchar',
+            isNullable: false,
           },
           {
             name: 'avatar',
@@ -33,13 +35,34 @@ export default class CreateUsers1598581995434 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: 'classe',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
             name: 'sub_class',
             type: 'varchar',
+            isNullable: false,
           },
           {
             name: 'permission',
             type: 'varchar',
             isNullable: false,
+          },
+          {
+            name: 'cp',
+            type: 'integer',
+            isNullable: true,
+          },
+          {
+            name: 'active',
+            type: 'boolean',
+            isNullable: false,
+          },
+          {
+            name: 'strike',
+            type: 'integer',
+            isNullable: true,
           },
           {
             name: 'created_at',

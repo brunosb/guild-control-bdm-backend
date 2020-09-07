@@ -5,14 +5,15 @@ import AppError from '@shared/erros/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import User from '../infra/typeorm/entities/User';
-import IClassesRepository from '../repositories/IClassesRepository';
+import IClassesProvider from '../providers/ClassesProvider/models/IClassesProvider';
 
 interface IRequest {
   name: string;
   whatsapp: string;
-  permission: 'Leader' | 'Player';
-  class_id: string;
+  permission: 'Master' | 'Officer' | 'Player';
+  classe: string;
   sub_class: 'Awakening' | 'Ascension';
+  cp: number;
   password: string;
 }
 
@@ -22,22 +23,23 @@ class CreateUserService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
-    @inject('ClassesRepository')
-    private classesRepository: IClassesRepository,
-
     @inject('HashProvider')
     private hashProvider: IHashProvider,
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
+
+    @inject('ClassesProvider')
+    private classesProvider: IClassesProvider,
   ) {}
 
   public async execute({
     name,
     whatsapp,
     permission,
-    class_id,
+    classe,
     sub_class,
+    cp,
     password,
   }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByName(name);
@@ -46,7 +48,11 @@ class CreateUserService {
       throw new AppError('Family name already exists.');
     }
 
-    if (permission !== 'Leader' && permission !== 'Player') {
+    if (
+      permission !== 'Master' &&
+      permission !== 'Officer' &&
+      permission !== 'Player'
+    ) {
       throw new AppError('Permission is not exist.');
     }
 
@@ -54,7 +60,7 @@ class CreateUserService {
       throw new AppError('Sub Class is not exist.');
     }
 
-    const checkClassExists = await this.classesRepository.findById(class_id);
+    const checkClassExists = await this.classesProvider.existClass(classe);
 
     if (!checkClassExists) {
       throw new AppError('Class is not exist.');
@@ -67,7 +73,8 @@ class CreateUserService {
       whatsapp,
       permission,
       sub_class,
-      class_id,
+      classe,
+      cp,
       active: true,
       password: hashedPassword,
     });

@@ -13,7 +13,8 @@ export default class UsersController {
       permission,
       password,
       sub_class,
-      class_id,
+      classe,
+      cp,
     } = request.body;
 
     const createUser = container.resolve(CreateUserService);
@@ -24,7 +25,8 @@ export default class UsersController {
       permission,
       password,
       sub_class,
-      class_id,
+      classe,
+      cp,
     });
 
     return response.json(classToClass(user));

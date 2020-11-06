@@ -17,17 +17,30 @@ export default class ProfileController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const user_id = request.user.id;
-    const { name, whatsapp, old_password, password } = request.body;
+    const {
+      id,
+      name,
+      whatsapp,
+      cp,
+      classe,
+      sub_class,
+      permission,
+      password,
+    } = request.body;
 
     const updateProfile = container.resolve(UpdateProfileService);
 
     const user = await updateProfile.execute({
-      user_id,
+      id,
       name,
       whatsapp,
-      old_password,
+      cp,
+      classe,
+      sub_class,
+      permission,
       password,
+      user_id_authenticated: request.user.id,
+      user_permission_authenticated: request.user.permission,
     });
 
     return response.json(classToClass(user));

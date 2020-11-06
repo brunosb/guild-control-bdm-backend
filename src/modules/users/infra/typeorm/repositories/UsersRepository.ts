@@ -27,6 +27,14 @@ class UsersRepository implements IUsersRepository {
     return users;
   }
 
+  public async findAllMasters(): Promise<User[]> {
+    const users = await this.ormRepository.find({
+      where: { permission: 'Master' },
+    });
+
+    return users;
+  }
+
   public async create(userData: ICreateUserDTO): Promise<User> {
     const user = this.ormRepository.create(userData);
 

@@ -6,5 +6,6 @@ export default interface ICreateUserDTO {
   classe: string;
   sub_class: 'Awakening' | 'Ascension';
   active: boolean;
+  strike: number;
   password: string;
 }

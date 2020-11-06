@@ -16,7 +16,7 @@ class ClassesProvider implements IClassesProvider {
       'Ranger',
       'Shai',
       'Sorceress',
-      'Strike',
+      'Striker',
       'Tamer',
       'Valkyrie',
       'Warrior',

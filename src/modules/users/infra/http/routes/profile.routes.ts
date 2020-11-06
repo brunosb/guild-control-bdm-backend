@@ -16,11 +16,14 @@ profileRouter.put(
   '/',
   celebrate({
     [Segments.BODY]: {
+      id: Joi.string().uuid().required(),
       name: Joi.string().required(),
-      email: Joi.string().email().required(),
-      old_password: Joi.string(),
-      password: Joi.string(),
-      password_confirmation: Joi.string().valid(Joi.ref('password')),
+      whatsapp: Joi.string().required(),
+      cp: Joi.string().required(),
+      classe: Joi.string().required(),
+      sub_class: Joi.string().required(),
+      permission: Joi.string().required(),
+      password: Joi.string().allow('', null),
     },
   }),
   profileController.update,

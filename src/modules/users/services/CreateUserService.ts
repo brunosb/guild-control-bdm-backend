@@ -76,10 +76,11 @@ class CreateUserService {
       classe,
       cp,
       active: true,
+      strike: 0,
       password: hashedPassword,
     });
 
-    await this.cacheProvider.invalidatePrefix('users-list');
+    await this.cacheProvider.invalidate('users-list');
 
     return user;
   }

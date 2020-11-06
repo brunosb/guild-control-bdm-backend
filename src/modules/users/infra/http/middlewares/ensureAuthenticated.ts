@@ -32,8 +32,11 @@ export default function ensureAuthenticated(
 
     const { sub } = decoded as ITokenPayload;
 
+    const [user_id, permission] = sub.split('|');
+
     request.user = {
-      id: sub,
+      id: user_id,
+      permission,
     };
 
     return next();

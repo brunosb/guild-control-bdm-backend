@@ -7,6 +7,7 @@ import UsersController from '../controller/UsersController';
 import UserAvatarController from '../controller/UserAvatarController';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import ensureLeadersAuthenticated from '../middlewares/ensureLeadersAuthenticated';
 
 const usersRouter = Router();
 const upload = multer(uploadConfig.multer);
@@ -30,6 +31,32 @@ usersRouter.post(
 );
 
 usersRouter.get('/list', ensureAuthenticated, usersController.list);
+
+usersRouter.patch(
+  '/change-active',
+  ensureAuthenticated,
+  ensureLeadersAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      user_id: Joi.string().required(),
+      active: Joi.boolean().required(),
+    },
+  }),
+  usersController.changeActive,
+);
+
+usersRouter.patch(
+  '/add-remove-strike',
+  ensureAuthenticated,
+  ensureLeadersAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      user_id: Joi.string().required(),
+      operation: Joi.string().required(),
+    },
+  }),
+  usersController.AddAndRemoveStrike,
+);
 
 usersRouter.patch(
   '/avatar',

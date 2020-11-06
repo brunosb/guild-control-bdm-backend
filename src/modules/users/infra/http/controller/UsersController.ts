@@ -4,6 +4,8 @@ import { classToClass } from 'class-transformer';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
 import ListAllUsersService from '@modules/users/services/ListAllUsersService';
+import ChangeActiveUserService from '@modules/users/services/ChangeActiveUserService';
+import AddAndRemoveStrikeService from '@modules/users/services/AddAndRemoveStrikeService';
 
 export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -37,5 +39,35 @@ export default class UsersController {
 
     const users = await listAllUsers.execute();
     return response.json(classToClass(users));
+  }
+
+  public async changeActive(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { user_id, active } = request.body;
+
+    const changeActiveUser = container.resolve(ChangeActiveUserService);
+
+    const user = await changeActiveUser.execute({
+      user_id,
+      active,
+      user_id_authenticated: request.user.id,
+    });
+
+    return response.json(classToClass(user));
+  }
+
+  public async AddAndRemoveStrike(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { user_id, operation } = request.body;
+
+    const addAndRemoveStrike = container.resolve(AddAndRemoveStrikeService);
+
+    const user = await addAndRemoveStrike.execute({ user_id, operation });
+
+    return response.json(classToClass(user));
   }
 }

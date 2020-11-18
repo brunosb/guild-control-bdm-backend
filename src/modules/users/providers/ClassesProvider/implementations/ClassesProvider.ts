@@ -6,6 +6,7 @@ class ClassesProvider implements IClassesProvider {
       'Archer',
       'Berserker',
       'Dark Knight',
+      'Guardian',
       'Hashashin',
       'Kunoichi',
       'Lahn',

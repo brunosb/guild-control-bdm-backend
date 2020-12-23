@@ -14,6 +14,7 @@ class ClassesProvider implements IClassesProvider {
       'Musa',
       'Mystic',
       'Ninja',
+      'Nova',
       'Ranger',
       'Shai',
       'Sorceress',
